@@ -36,3 +36,5 @@ Now you can start the app by running the app.js file.
 ```
 node app.js
 ```
+
+To use this app, open your favorite browser and go to http://localhost:3000
