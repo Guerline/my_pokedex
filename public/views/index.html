@@ -1,0 +1,95 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="Pokedex">
+<head>
+    <!-- META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+    <title>Pokedex</title>
+
+    <!-- SCROLLS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:50px; }
+    </style>
+
+    <!-- SPELLS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script><!-- load angular -->
+	 <script src="../core.js"></script>
+
+</head>
+<body ng-controller="MainController">
+    <div class="container">
+
+        <div class="jumbotron text-center">
+            <h1>Welcome to your pokedex. You have {{ pokemons.length }} pokemons.</span></h1>
+        </div>
+		<div class = "filter jumbotron">
+		  Filter by :  <input type="text" name="input" ng-model="filterValue" class="form-control"style="display: inline-block;width: 200px;" > 
+		   <select name="singleSelect" ng-model="filterFieldName" class="form-control" style="display: inline-block;width: 200px;">
+				<option value="ename">Ename</option>
+				<option value="id">Id</option>
+				<option value="type">Type</option>
+			   </select>
+				<button class="btn btn-primary" ng-click="filterFieldName = ''">Remove Filter</button>
+		
+		  <table class="pokemons-order">
+			<tr>
+			<th>Sort  by :</th>
+			  <th>
+				<button class="btn btn-primary" ng-click="sortBy('ename')" ng-style="fieldName === 'ename' && {'background-color': 'red'} || {'background-color': 'lightgrey'}">Ename</button>
+				<span class="sortorder" ng-show="fieldName === 'ename'" ng-class="{asc: asc}"></span>
+			  </th>
+			  <th>
+				<button class="btn btn-primary" ng-click="sortBy('id')" ng-style="fieldName === 'id' && {'background-color': 'red'} || {'background-color': 'lightgrey'}">Id</button>
+				<span class="sortorder" ng-show="fieldName === 'id'" ng-class="{asc: asc}"></span>
+			  </th>
+			  <th>
+				<button class="btn btn-primary" ng-click="sortBy('type')" ng-style="fieldName === 'type' && {'background-color': 'red'} || {'background-color': 'lightgrey'}" >Type</button>
+				<span class="sortorder" ng-show="fieldName === 'type'" ng-class="{asc: asc}"></span>
+			  </th>
+			  <th>
+				<button class="btn btn-primary" ng-click="fieldName = null; asc = false">Set to unsorted</button>
+				<span class="sortorder" ></span>
+			  </th>
+			</tr>
+		  </table>
+		 </div>
+
+        <div id="pokemons-list" class="jumbotron col-lg-6">
+
+                <div ng-repeat="pokemon in pokemons | filter:filterBy | orderBy:fieldName:asc">
+                    <pre style="width:500px" ng-click="selectPokemon(pokemon)">
+					<span>Name : {{pokemon.ename | uppercase}}</span>
+					<span>Id : {{pokemon.id }}</span>
+					<span>Look at me : <img ng-src="{{pokemon.image}}"></span>
+                         
+                    </pre>
+                </div>
+
+        </div>
+		 <div id="pokemon-detail" class="jumbotron col-lg-6" ng-show="selected_pokemon">
+			<pre style="width:500px" >
+					<span>Name : {{selected_pokemon.ename | uppercase}}</span>
+					<span>Id : {{selected_pokemon.id }}</span>
+					<span>Image: <img ng-src="{{selected_pokemon.image}}"></span>
+					<span>Sprite : <img ng-src="{{selected_pokemon.image_spr}}"></span>
+					<span>Types :{{selected_pokemon.type_name}} </span>
+                    <span>Attack : {{selected_pokemon.base["Attack"] }}</span>
+					<span>Defense : {{selected_pokemon.base["Defense"]}}</span>
+					<span>HP : {{selected_pokemon.base["Speed"] }}</span>
+					<span>Sp.Atk : {{selected_pokemon.base["Sp.Atk"] }}</span>
+					<span>Sp.Def : {{selected_pokemon.base["Sp.Def"] }}</span>
+					<span>Speed : {{selected_pokemon.base["Speed"] }}</span>
+                   </pre>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

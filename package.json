@@ -1,0 +1,10 @@
+{
+  "name"         : "Pokedex",
+  "version"      : "0.0.0",
+  "description"  : "Your simple Pokedex.",
+  "main"         : "app.js",
+  "author"       : "Guerline JB",
+  "dependencies" : {
+    "express"        : "^4.13.4"
+  }
+}
